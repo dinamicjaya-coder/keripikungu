@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keripik Ubi Risma</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5e1ff, #e4d1ff);
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 8%;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav .logo {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #6a1b9a;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #6a1b9a;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #9b5de5;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 60px;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(70%);
+    }
+
+    .hero-content {
+      position: absolute;
+      color: white;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      margin: 10px 0;
+    }
+
+    .hero-content button {
+      background: #9b5de5;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .hero-content button:hover {
+      background: #7b35d4;
+    }
+
+    /* ===== PRODUK ===== */
+    .produk-section {
+      padding: 50px 10%;
+      text-align: center;
+    }
+
+    .produk-section h2 {
+      margin-bottom: 30px;
+      color: #6a1b9a;
+    }
+
+    .produk-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .produk-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 15px;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .produk-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .produk-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .produk-card img {
+      width: 100%;
+      border-radius: 10px;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .produk-card h3 {
+      color: #8e24aa;
+      margin-top: 10px;
+    }
+
+    .produk-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .produk-card span {
+      display: block;
+      margin-top: 8px;
+      font-weight: 600;
+      color: #7b1fa2;
+    }
+
+    .btn-beli {
+      background: #9b5de5;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-beli:hover {
+      background: #7b35d4;
+    }
+
+    /* ===== GALERI ===== */
+    .gallery-section {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(180deg, #f8f5ff 0%, #f2ebff 100%);
+    }
+
+    .gallery-section h2 {
+      font-size: 2rem;
+      color: #4a148c;
+      margin-bottom: 20px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+
+    .gallery img {
+      width: 100%;
+      max-width: 220px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== MANFAAT UBI ===== */
+    .benefit-section {
+      background: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .benefit-section h2 {
+      font-size: 2rem;
+      color: #6a1b9a;
+      margin-bottom: 40px;
+    }
+
+    .benefit-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .benefit-card {
+      background: #f8f5ff;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      max-width: 280px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .benefit-card h3 {
+      color: #7b1fa2;
+      margin-bottom: 10px;
+    }
+
+    .benefit-card p {
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #9b5de5;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    /* ===== POPUP NOTIFIKASI ===== */
+    .popup {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #9b5de5;
+      color: #fff;
+      padding: 15px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 200;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Keripik Ubi Risma</div>
+    <ul>
+      <li><a href="#home">Beranda</a></li>
+      <li><a href="#produk">Produk</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#manfaat">Manfaat</a></li>
+      <li><a href="https://wa.me/6287748558153" target="_blank">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <header id="home" class="hero">
+    <img src="banner.png" alt="Keripik Ubi Risma Banner" class="hero-img" />
+    <div class="hero-content">
+      <h1>Keripik Ubi Risma</h1>
+      <p>Cemilan renyah dari bahan alami — rasa lokal, kualitas profesional 💜</p>
+      <button id="lihatProduk">Lihat Produk</button>
+    </div>
+  </header>
+
+  <section id="produk" class="produk-section">
+    <h2>Katalog Produk</h2>
+    <div class="produk-container">
+      <div class="produk-card">
+        <img src="ungu.png" alt="Keripik Ubi Ungu">
+        <h3>Keripik Ubi Ungu</h3>
+        <p>Renyah, gurih, dan dibuat dari ubi ungu pilihan.</p>
+        <span>Rp35.000 / 250g</span>
+        <button class="btn-beli" onclick="checkout('Keripik Ubi Ungu', 'Rp35.000 / 250g')">Beli Sekarang</button>
+      </div>
+
+      <div class="produk-card">
+        <img src="gula aren.png" alt="Keripik Ubi Gula Aren">
+        <h3>Keripik Ubi Gula Aren</h3>
+        <p>Rasa manis khas gula aren, cocok untuk semua suasana.</p>
+        <span>Rp45.000 / 250g</span>
+        <button class="btn-beli" onclick="checkout('Keripik Ubi Gula Aren', 'Rp45.000 / 250g')">Beli Sekarang</button>
+      </div>
+
+      <div class="produk-card">
+        <img src="sistik bawang.png" alt="Sistik Bawang">
+        <h3>Sistik Bawang</h3>
+        <p>Gurih alami tanpa bahan pengawet.</p>
+        <span>Rp35.000 / 250g</span>
+        <button class="btn-beli" onclick="checkout('Sistik Bawang', 'Rp35.000 / 250g')">Beli Sekarang</button>
+      </div>
+
+      <div class="produk-card">
+        <img src="makaroni ori.png" alt="Makroni Pedas">
+        <h3>Makroni Pedas</h3>
+        <p>Pedas gurih dengan sensasi daun jeruk.</p>
+        <span>Rp25.000 / 200g</span>
+        <button class="btn-beli" onclick="checkout('Makroni Pedas', 'Rp25.000 / 200g')">Beli Sekarang</button>
+      </div>
+
+      <div class="produk-card">
+        <img src="rumput laut.png" alt="Makroni Rumput Laut">
+        <h3>Makroni Rumput Laut</h3>
+        <p>Pedas gurih dengan sensasi daun jeruk dan rumput laut.</p>
+        <span>Rp35.000 / 200g</span>
+        <button class="btn-beli" onclick="checkout('Makroni Rumput Laut', 'Rp35.000 / 200g')">Beli Sekarang</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeri dan Manfaat -->
+  <section id="galeri" class="gallery-section">
+    <h2>Galeri Produk</h2>
+    <div class="gallery">
+      <img src="m rujak.png" alt="Keripik Ubi Ungu">
+      <img src="sistik bawang.png" alt="Keripik Ubi Gula Aren">
+      <img src="gula aren.png" alt="Sistik Bawang">
+      <img src="ungu.png" alt="Makroni Pedas">
+      <img src="rumput laut.png" alt="Makroni Rumput Laut">
+    </div>
+  </section>
+
+  <section id="manfaat" class="benefit-section">
+    <h2>Manfaat Ubi untuk Kesehatan</h2>
+    <div class="benefit-list">
+      <div class="benefit-card">
+        <h3>🌿 Kaya Antioksidan</h3>
+        <p>Ubi ungu mengandung antosianin tinggi yang baik untuk menangkal radikal bebas.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>💪 Sumber Energi Alami</h3>
+        <p>Kandungan karbohidrat kompleksnya membuat kenyang lebih lama tanpa lemas.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>❤️ Baik untuk Jantung</h3>
+        <p>Serat alami dan vitamin B6 membantu menjaga kesehatan jantung dan pembuluh darah.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Keripik Ubi Risma | <a href="https://wa.me/6287748558153" target="_blank">Hubungi via WhatsApp</a></p>
+  </footer>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">Pesanan kamu diarahkan ke WhatsApp...</div>
+
+  <script>
+    document.getElementById('lihatProduk').addEventListener('click', () => {
+      document.querySelector('#produk').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const cards = document.querySelectorAll('.produk-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    cards.forEach(card => observer.observe(card));
+
+    function checkout(nama, harga) {
+      const popup = document.getElementById('popup');
+      popup.classList.add('show');
+      setTimeout(() => popup.classList.remove('show'), 2500);
+      const pesan = `Halo, saya ingin pesan ${nama} (${harga}). Apakah masih tersedia? 😊`;
+      const url = `https://wa.me/6287748558153?text=${encodeURIComponent(pesan)}`;
+      setTimeout(() => window.open(url, '_blank'), 800);
+    }
+  </script>
+</body>
+</html>
